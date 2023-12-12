@@ -1,18 +1,15 @@
 /// Definition for singly-linked list.
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
-  pub val: i32,
-  pub next: Option<Box<ListNode>>
+    pub val: i32,
+    pub next: Option<Box<ListNode>>,
 }
 
 impl ListNode {
-  #[inline]
-  pub fn new(val: i32) -> Self {
-    ListNode {
-      next: None,
-      val
+    #[inline]
+    pub fn new(val: i32) -> Self {
+        ListNode { val, next: None }
     }
-  }
 }
 
 pub fn create_n_list_nodes(n: i32) -> Option<Box<ListNode>> {
@@ -49,14 +46,35 @@ mod tests {
     #[test]
     fn create_4_list_nodes() {
         let l = create_n_list_nodes(4);
-        let expected = Some(Box::new(ListNode { val: 1, next: Some(Box::new(ListNode { val: 2, next: Some(Box::new(ListNode { val: 3, next: Some(Box::new(ListNode { val: 4, next: None })) })) })) }));
+        let expected = Some(Box::new(ListNode {
+            val: 1,
+            next: Some(Box::new(ListNode {
+                val: 2,
+                next: Some(Box::new(ListNode {
+                    val: 3,
+                    next: Some(Box::new(ListNode { val: 4, next: None })),
+                })),
+            })),
+        }));
         assert_eq!(l, expected);
     }
 
     #[test]
     fn create_5_list_nodes() {
         let l = create_n_list_nodes(5);
-        let expected = Some(Box::new(ListNode { val: 1, next: Some(Box::new(ListNode { val: 2, next: Some(Box::new(ListNode { val: 3, next: Some(Box::new(ListNode { val: 4, next: Some(Box::new(ListNode { val: 5, next: None })) })) })) })) }));
+        let expected = Some(Box::new(ListNode {
+            val: 1,
+            next: Some(Box::new(ListNode {
+                val: 2,
+                next: Some(Box::new(ListNode {
+                    val: 3,
+                    next: Some(Box::new(ListNode {
+                        val: 4,
+                        next: Some(Box::new(ListNode { val: 5, next: None })),
+                    })),
+                })),
+            })),
+        }));
         assert_eq!(l, expected);
     }
 }

@@ -1,7 +1,6 @@
 use utils::list_node::*;
 
-pub fn reorder_list(_head: &mut Option<Box<ListNode>>) {
-}
+pub fn reorder_list(_head: &mut Option<Box<ListNode>>) {}
 
 pub fn reorder_list_linear_memory(head: &mut Option<Box<ListNode>>) {
     use std::collections::VecDeque;
