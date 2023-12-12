@@ -6,12 +6,14 @@ pub struct ListNode {
 }
 
 impl ListNode {
+    /// Create a new `ListNode` with no `next` node
     #[inline]
     pub fn new(val: i32) -> Self {
         ListNode { val, next: None }
     }
 }
 
+/// Create a singly-linked list containing `n` nodes
 pub fn create_n_list_nodes(n: i32) -> Option<Box<ListNode>> {
     let mut i = 1;
     let mut dummy = Some(Box::new(ListNode::new(0)));
