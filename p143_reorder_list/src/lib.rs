@@ -26,69 +26,55 @@ pub fn reorder_list_linear_memory(head: &mut Option<Box<ListNode>>) {
 mod tests {
     use super::*;
 
-    fn make_list_node_4() -> Option<Box<ListNode>> {
-        let l4 = Some(Box::new(ListNode::new(4)));
-        let mut l3 = Some(Box::new(ListNode::new(3)));
-        let mut l2 = Some(Box::new(ListNode::new(2)));
-        let mut l1 = Some(Box::new(ListNode::new(1)));
-        l3.as_mut().unwrap().next = l4;
-        l2.as_mut().unwrap().next = l3;
-        l1.as_mut().unwrap().next = l2;
-        l1
-    }
-
-    fn make_list_node_5() -> Option<Box<ListNode>> {
-        let l5 = Some(Box::new(ListNode::new(5)));
-        let mut l4 = Some(Box::new(ListNode::new(4)));
-        let mut l3 = Some(Box::new(ListNode::new(3)));
-        let mut l2 = Some(Box::new(ListNode::new(2)));
-        let mut l1 = Some(Box::new(ListNode::new(1)));
-        l4.as_mut().unwrap().next = l5;
-        l3.as_mut().unwrap().next = l4;
-        l2.as_mut().unwrap().next = l3;
-        l1.as_mut().unwrap().next = l2;
-        l1
-    }
-    //fn make_list_node(mut n: i32) -> Option<Box<ListNode>> {
-    //    let mut l: &mut Option<Box<ListNode>> = &mut None;
-    //    while n > 0 {
-    //        let mut new = Some(Box::new(ListNode::new(n)));
-    //        new.unwrap().next = *l;
-    //        l = &mut new;
-    //        n -= 1;
-    //    }
-    //    *l
-    //}
-
     #[test]
-    fn reorder_list_linear_memory_1() {
-        let head = &mut Some(Box::new(ListNode { val: 1, next: None }));
+    fn reorder_list_linear_memory_0_nodes() {
+        let head = &mut create_n_list_nodes(0);
         reorder_list_linear_memory(head);
-        println!("reorder_list_linear_memory_1 {:#?}", head);
-        //assert_eq!(result, 4);
+        assert_eq!(*head, None);
     }
 
     #[test]
-    fn reorder_list_linear_memory_4() {
-        let head = &mut make_list_node_4();
+    fn reorder_list_linear_memory_1_node() {
+        let head = &mut create_n_list_nodes(1);
         reorder_list_linear_memory(head);
-        println!("reorder_list_linear_memory_4 {:#?}", head);
-        //assert_eq!(result, 4);
+        let expected = Some(Box::new(ListNode { val: 1, next: None }));
+        assert_eq!(*head, expected);
     }
 
     #[test]
-    fn reorder_list_linear_memory_5() {
-        let head = &mut make_list_node_5();
+    fn reorder_list_linear_memory_4_nodes() {
+        let head = &mut create_n_list_nodes(4);
         reorder_list_linear_memory(head);
-        println!("reorder_list_linear_memory_5 {:#?}", head);
-        //assert_eq!(result, 4);
+        let expected = Some(Box::new(ListNode {
+            val: 1,
+            next: Some(Box::new(ListNode {
+                val: 4,
+                next: Some(Box::new(ListNode {
+                    val: 2,
+                    next: Some(Box::new(ListNode { val: 3, next: None })),
+                })),
+            })),
+        }));
+        assert_eq!(*head, expected);
     }
 
-    // Run `cargo test -- --nocapture` to see println! output in stdout
     #[test]
-    fn create_list_node() {
-        println!("make_list_node_4 {:#?}", make_list_node_4());
-        println!("make_list_node_5 {:#?}", make_list_node_5());
-        //assert_eq!(result, 4);
+    fn reorder_list_linear_memory_5_nodes() {
+        let head = &mut create_n_list_nodes(5);
+        reorder_list_linear_memory(head);
+        let expected = Some(Box::new(ListNode {
+            val: 1,
+            next: Some(Box::new(ListNode {
+                val: 5,
+                next: Some(Box::new(ListNode {
+                    val: 2,
+                    next: Some(Box::new(ListNode {
+                        val: 4,
+                        next: Some(Box::new(ListNode { val: 3, next: None })),
+                    })),
+                })),
+            })),
+        }));
+        assert_eq!(*head, expected);
     }
 }
