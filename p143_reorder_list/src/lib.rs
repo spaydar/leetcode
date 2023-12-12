@@ -1,7 +1,11 @@
+//! docs TODO put LeetCode problem description here
+
 use utils::list_node::*;
 
+/// docs TODO
 pub fn reorder_list(_head: &mut Option<Box<ListNode>>) {}
 
+/// docs TODO put solution explanation here
 pub fn reorder_list_linear_memory(head: &mut Option<Box<ListNode>>) {
     use std::collections::VecDeque;
     let mut v = VecDeque::<Option<Box<ListNode>>>::new();
