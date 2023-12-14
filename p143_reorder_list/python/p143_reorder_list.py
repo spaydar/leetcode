@@ -22,16 +22,33 @@ class ListNode:
                     return False
                 r1 = r1.next
                 r2 = r2.next
-            return r1 == None and r2 == None
+            return r1 is None and r2 is None
         return False
 
     def __repr__(self) -> str:
         return f'ListNode({self.val}) -> {self.next}'
 
-def reorder_list(head: Optional[ListNode]) -> None:
+def reorder_list_constant_memory(head: Optional[ListNode]) -> None:
     """
     Do not return anything, modify head in-place instead.
     """
+    if head is None or head.next is None:
+        return
+    # Find mid point of list
+    slow, fast = head, head.next
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    # Separate first half from second
+    tmp = slow
+    slow = slow.next
+    tmp.next = None
+    # TODO reverse second half of list
+    while slow.next:
+        prev = slow
+        slow = slow.next
+        tmp = slow.next
+        prev.next = None
 
 def reorder_list_linear_memory(head: Optional[ListNode]) -> None:
     """
@@ -102,9 +119,13 @@ class TestReorderList(unittest.TestCase):
         self.assertEqual(l, self.create_n_list_nodes_reordered(1))
 
     def test_4_nodes(self):
+        expected = self.create_n_list_nodes_reordered(4)
         l = self.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, self.create_n_list_nodes_reordered(4))
+        self.assertEqual(l, expected)
+        l = self.create_n_list_nodes(4)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, expected)
 
     def test_5_nodes(self):
         l = self.create_n_list_nodes(5)
