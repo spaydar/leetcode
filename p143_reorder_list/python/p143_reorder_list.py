@@ -3,6 +3,8 @@ LeetCode #143. Reorder List
 
 Reorder a singly-linked list of `n` nodes as follows:
     `1 > n > 2 > n-1 > 3 > n-2 > ...`
+
+The number of nodes in the list is in the range `[1, 5 * 10^4]`
 """
 from typing import Optional
 
@@ -15,6 +17,9 @@ class ListNode:
         self.next = next
 
     def __eq__(self, __value: object) -> bool:
+        """
+        Returns whether the value of each node in the given list equals that in self
+        """
         if isinstance(__value, ListNode):
             r1, r2 = self, __value
             while r1 and r2:
@@ -30,7 +35,7 @@ class ListNode:
 
 def reorder_list_constant_memory(head: Optional[ListNode]) -> None:
     """
-    Do not return anything, modify head in-place instead.
+    Reorders a linked list using constant memory, modifying the head in-place
     """
     if head is None or head.next is None:
         return
@@ -40,19 +45,27 @@ def reorder_list_constant_memory(head: Optional[ListNode]) -> None:
         slow = slow.next
         fast = fast.next.next
     # Separate first half from second
-    tmp = slow
-    slow = slow.next
-    tmp.next = None
-    # TODO reverse second half of list
-    while slow.next:
-        prev = slow
-        slow = slow.next
-        tmp = slow.next
-        prev.next = None
+    second = slow.next
+    prev = slow.next = None
+    # Reverse second half of list
+    while second:
+        tmp = second.next
+        second.next = prev
+        prev = second
+        second = tmp
+    # Interleave lists
+    left, right = head, prev
+    while left and right:
+        tmp_l = left.next
+        tmp_r = right.next
+        left.next = right
+        right.next = tmp_l
+        left = tmp_l
+        right = tmp_r
 
 def reorder_list_linear_memory(head: Optional[ListNode]) -> None:
     """
-    Do not return anything, modify head in-place instead.
+    Reorders a linked list using linear memory, modifying the head in-place
     """
     lst = list()
     runner = head
@@ -109,14 +122,22 @@ class TestReorderList(unittest.TestCase):
         return dummy.next
 
     def test_0_nodes(self):
+        expected = self.create_n_list_nodes_reordered(0)
         l = self.create_n_list_nodes(0)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, self.create_n_list_nodes_reordered(0))
+        self.assertEqual(l, expected)
+        l = self.create_n_list_nodes(0)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, expected)
 
     def test_1_nodes(self):
+        expected = self.create_n_list_nodes_reordered(1)
         l = self.create_n_list_nodes(1)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, self.create_n_list_nodes_reordered(1))
+        self.assertEqual(l, expected)
+        l = self.create_n_list_nodes(1)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, expected)
 
     def test_4_nodes(self):
         expected = self.create_n_list_nodes_reordered(4)
@@ -128,20 +149,39 @@ class TestReorderList(unittest.TestCase):
         self.assertEqual(l, expected)
 
     def test_5_nodes(self):
+        expected = self.create_n_list_nodes_reordered(5)
         l = self.create_n_list_nodes(5)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, self.create_n_list_nodes_reordered(5))
+        self.assertEqual(l, expected)
+        l = self.create_n_list_nodes(5)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, expected)
+
+    def test_50k_nodes(self):
+        expected = self.create_n_list_nodes_reordered(50000)
+        l = self.create_n_list_nodes(50000)
+        reorder_list_linear_memory(l)
+        self.assertEqual(l, expected)
+        l = self.create_n_list_nodes(50000)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, expected)
 
     def test_extra_node(self):
+        r = ListNode(0, self.create_n_list_nodes_reordered(4))
         l = self.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
-        r = ListNode(0, self.create_n_list_nodes_reordered(4))
+        self.assertNotEqual(l, r)
+        l = self.create_n_list_nodes(4)
+        reorder_list_constant_memory(l)
         self.assertNotEqual(l, r)
 
     def test_not_reordered(self):
+        r = self.create_n_list_nodes(4)
         l = self.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
-        self.assertNotEqual(l, self.create_n_list_nodes(4))
+        l = self.create_n_list_nodes(4)
+        reorder_list_constant_memory(l)
+        self.assertNotEqual(l, r)
 
 if __name__ == '__main__':
     unittest.main()
