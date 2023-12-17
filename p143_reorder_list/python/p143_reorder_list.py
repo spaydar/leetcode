@@ -121,50 +121,61 @@ class TestReorderList(unittest.TestCase):
                 r -= 1
         return dummy.next
 
-    def test_0_nodes(self):
-        expected = self.create_n_list_nodes_reordered(0)
+    reordered_0_nodes = create_n_list_nodes_reordered(0)
+    reordered_1_nodes = create_n_list_nodes_reordered(1)
+    reordered_4_nodes = create_n_list_nodes_reordered(4)
+    reordered_5_nodes = create_n_list_nodes_reordered(5)
+    reordered_50k_nodes = create_n_list_nodes_reordered(50000)
+
+    def test_0_nodes_constant_memory(self):
+        l = self.create_n_list_nodes(0)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, self.reordered_0_nodes)
+
+    def test_0_nodes_linear_memory(self):
         l = self.create_n_list_nodes(0)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, expected)
-        l = self.create_n_list_nodes(0)
-        reorder_list_constant_memory(l)
-        self.assertEqual(l, expected)
+        self.assertEqual(l, self.reordered_0_nodes)
 
-    def test_1_nodes(self):
-        expected = self.create_n_list_nodes_reordered(1)
-        l = self.create_n_list_nodes(1)
-        reorder_list_linear_memory(l)
-        self.assertEqual(l, expected)
+    def test_1_nodes_constant_memory(self):
         l = self.create_n_list_nodes(1)
         reorder_list_constant_memory(l)
-        self.assertEqual(l, expected)
+        self.assertEqual(l, self.reordered_1_nodes)
 
-    def test_4_nodes(self):
-        expected = self.create_n_list_nodes_reordered(4)
+    def test_1_nodes_linear_memory(self):
+        l = self.create_n_list_nodes(1)
+        reorder_list_linear_memory(l)
+        self.assertEqual(l, self.reordered_1_nodes)
+
+    def test_4_nodes_constant_memory(self):
+        l = self.create_n_list_nodes(4)
+        reorder_list_constant_memory(l)
+        self.assertEqual(l, self.reordered_4_nodes)
+
+    def test_4_nodes_linear_memory(self):
         l = self.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, expected)
-        l = self.create_n_list_nodes(4)
-        reorder_list_constant_memory(l)
-        self.assertEqual(l, expected)
+        self.assertEqual(l, self.reordered_4_nodes)
 
-    def test_5_nodes(self):
-        expected = self.create_n_list_nodes_reordered(5)
-        l = self.create_n_list_nodes(5)
-        reorder_list_linear_memory(l)
-        self.assertEqual(l, expected)
+    def test_5_nodes_constant_memory(self):
         l = self.create_n_list_nodes(5)
         reorder_list_constant_memory(l)
-        self.assertEqual(l, expected)
+        self.assertEqual(l, self.reordered_5_nodes)
 
-    def test_50k_nodes(self):
-        expected = self.create_n_list_nodes_reordered(50000)
-        l = self.create_n_list_nodes(50000)
+    def test_5_nodes_linear_memory(self):
+        l = self.create_n_list_nodes(5)
         reorder_list_linear_memory(l)
-        self.assertEqual(l, expected)
+        self.assertEqual(l, self.reordered_5_nodes)
+
+    def test_50k_nodes_constant_memory(self):
         l = self.create_n_list_nodes(50000)
         reorder_list_constant_memory(l)
-        self.assertEqual(l, expected)
+        self.assertEqual(l, self.reordered_50k_nodes)
+
+    def test_50k_nodes_linear_memory(self):
+        l = self.create_n_list_nodes(50000)
+        reorder_list_linear_memory(l)
+        self.assertEqual(l, self.reordered_50k_nodes)
 
     def test_extra_node(self):
         r = ListNode(0, self.create_n_list_nodes_reordered(4))
