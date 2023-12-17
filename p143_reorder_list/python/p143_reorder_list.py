@@ -126,6 +126,8 @@ class TestReorderList(unittest.TestCase):
     reordered_4_nodes = create_n_list_nodes_reordered(4)
     reordered_5_nodes = create_n_list_nodes_reordered(5)
     reordered_50k_nodes = create_n_list_nodes_reordered(50000)
+    reordered_4_plus_extra = ListNode(0, create_n_list_nodes_reordered(4))
+    not_reordered_4_nodes = create_n_list_nodes(4)
 
     def test_0_nodes_constant_memory(self):
         l = self.create_n_list_nodes(0)
@@ -177,22 +179,25 @@ class TestReorderList(unittest.TestCase):
         reorder_list_linear_memory(l)
         self.assertEqual(l, self.reordered_50k_nodes)
 
-    def test_extra_node(self):
-        r = ListNode(0, self.create_n_list_nodes_reordered(4))
-        l = self.create_n_list_nodes(4)
-        reorder_list_linear_memory(l)
-        self.assertNotEqual(l, r)
+    def test_extra_node_constant_memory(self):
         l = self.create_n_list_nodes(4)
         reorder_list_constant_memory(l)
-        self.assertNotEqual(l, r)
+        self.assertNotEqual(l, self.reordered_4_plus_extra)
 
-    def test_not_reordered(self):
-        r = self.create_n_list_nodes(4)
+    def test_extra_node_linear_memory(self):
         l = self.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
+        self.assertNotEqual(l, self.reordered_4_plus_extra)
+
+    def test_not_reordered_constant_memory(self):
         l = self.create_n_list_nodes(4)
         reorder_list_constant_memory(l)
-        self.assertNotEqual(l, r)
+        self.assertNotEqual(l, self.not_reordered_4_nodes)
+
+    def test_not_reordered_linear_memory(self):
+        l = self.create_n_list_nodes(4)
+        reorder_list_linear_memory(l)
+        self.assertNotEqual(l, self.not_reordered_4_nodes)
 
 if __name__ == '__main__':
     unittest.main()
