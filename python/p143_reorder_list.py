@@ -66,20 +66,6 @@ class TestReorderList(unittest.TestCase):
     """
 
     @staticmethod
-    def create_n_list_nodes(n: int) -> Optional[ListNode]:
-        """
-        Create a linked list whose values increase from 1 to `n`
-        """
-        dummy = ListNode()
-        runner = dummy
-        i = 1
-        while i <= n:
-            runner.next = ListNode(i)
-            runner = runner.next
-            i += 1
-        return dummy.next
-
-    @staticmethod
     def create_n_list_nodes_reordered(n: int) -> Optional[ListNode]:
         """
         Creates a linked list containing `n` nodes reordered as defined in the problem
@@ -103,75 +89,75 @@ class TestReorderList(unittest.TestCase):
     reordered_5_nodes = create_n_list_nodes_reordered(5)
     reordered_50k_nodes = create_n_list_nodes_reordered(50000)
     reordered_4_plus_extra = ListNode(0, create_n_list_nodes_reordered(4))
-    not_reordered_4_nodes = create_n_list_nodes(4)
+    not_reordered_4_nodes = ListNode.create_n_list_nodes(4)
 
     def test_0_nodes_constant_memory(self):
-        l = self.create_n_list_nodes(0)
+        l = ListNode.create_n_list_nodes(0)
         reorder_list_constant_memory(l)
         self.assertEqual(l, self.reordered_0_nodes)
 
     def test_0_nodes_linear_memory(self):
-        l = self.create_n_list_nodes(0)
+        l = ListNode.create_n_list_nodes(0)
         reorder_list_linear_memory(l)
         self.assertEqual(l, self.reordered_0_nodes)
 
     def test_1_nodes_constant_memory(self):
-        l = self.create_n_list_nodes(1)
+        l = ListNode.create_n_list_nodes(1)
         reorder_list_constant_memory(l)
         self.assertEqual(l, self.reordered_1_nodes)
 
     def test_1_nodes_linear_memory(self):
-        l = self.create_n_list_nodes(1)
+        l = ListNode.create_n_list_nodes(1)
         reorder_list_linear_memory(l)
         self.assertEqual(l, self.reordered_1_nodes)
 
     def test_4_nodes_constant_memory(self):
-        l = self.create_n_list_nodes(4)
+        l = ListNode.create_n_list_nodes(4)
         reorder_list_constant_memory(l)
         self.assertEqual(l, self.reordered_4_nodes)
 
     def test_4_nodes_linear_memory(self):
-        l = self.create_n_list_nodes(4)
+        l = ListNode.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
         self.assertEqual(l, self.reordered_4_nodes)
 
     def test_5_nodes_constant_memory(self):
-        l = self.create_n_list_nodes(5)
+        l = ListNode.create_n_list_nodes(5)
         reorder_list_constant_memory(l)
         self.assertEqual(l, self.reordered_5_nodes)
 
     def test_5_nodes_linear_memory(self):
-        l = self.create_n_list_nodes(5)
+        l = ListNode.create_n_list_nodes(5)
         reorder_list_linear_memory(l)
         self.assertEqual(l, self.reordered_5_nodes)
 
     def test_50k_nodes_constant_memory(self):
-        l = self.create_n_list_nodes(50000)
+        l = ListNode.create_n_list_nodes(50000)
         reorder_list_constant_memory(l)
         self.assertEqual(l, self.reordered_50k_nodes)
 
     def test_50k_nodes_linear_memory(self):
-        l = self.create_n_list_nodes(50000)
+        l = ListNode.create_n_list_nodes(50000)
         reorder_list_linear_memory(l)
         self.assertEqual(l, self.reordered_50k_nodes)
 
     def test_extra_node_constant_memory(self):
-        l = self.create_n_list_nodes(4)
+        l = ListNode.create_n_list_nodes(4)
         reorder_list_constant_memory(l)
         self.assertNotEqual(l, self.reordered_4_plus_extra)
 
     def test_extra_node_linear_memory(self):
-        l = self.create_n_list_nodes(4)
+        l = ListNode.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
         self.assertNotEqual(l, self.reordered_4_plus_extra)
 
     def test_not_reordered_constant_memory(self):
-        l = self.create_n_list_nodes(4)
+        l = ListNode.create_n_list_nodes(4)
         reorder_list_constant_memory(l)
         self.assertNotEqual(l, self.not_reordered_4_nodes)
 
     def test_not_reordered_linear_memory(self):
-        l = self.create_n_list_nodes(4)
+        l = ListNode.create_n_list_nodes(4)
         reorder_list_linear_memory(l)
         self.assertNotEqual(l, self.not_reordered_4_nodes)
 

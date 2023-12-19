@@ -1,3 +1,6 @@
+from __future__ import annotations
+from typing import Optional
+
 class ListNode:
     """
     Definition for singly-linked list.
@@ -22,3 +25,17 @@ class ListNode:
 
     def __repr__(self) -> str:
         return f'ListNode({self.val}) -> {self.next}'
+
+    @staticmethod
+    def create_n_list_nodes(n: int) -> Optional[ListNode]:
+        """
+        Create a linked list whose values increase from 1 to `n`
+        """
+        dummy = ListNode()
+        runner = dummy
+        i = 1
+        while i <= n:
+            runner.next = ListNode(i)
+            runner = runner.next
+            i += 1
+        return dummy.next
