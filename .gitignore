@@ -1,2 +1,6 @@
-/target
+# Python
 .python-version
+__pycache__
+
+# Rust
+target
