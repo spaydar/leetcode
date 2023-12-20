@@ -10,7 +10,7 @@ def maximum_depth_of_binary_tree_recursive(root: Optional[TreeNode]) -> int:
         return max(depth_left, depth_right)
     return helper(root, 0) if root else 0
 
-def maximum_depth_of_binary_tree_iterative(root: Optional[TreeNode]) -> int:
+def maximum_depth_of_binary_tree_iterative_dfs(root: Optional[TreeNode]) -> int:
     stack = list()
     if root:
         stack.append((root, 0))
@@ -22,3 +22,18 @@ def maximum_depth_of_binary_tree_iterative(root: Optional[TreeNode]) -> int:
             stack.append((node.left, depth + 1))
             stack.append((node.right, depth + 1))
     return max_depth
+
+def maximum_depth_of_binary_tree_iterative_bfs(root: Optional[TreeNode]) -> int:
+    queue = list()
+    if root:
+        queue.append(root)
+    level = 0
+    while (queue):
+        level += 1
+        for _ in range(len(queue)):
+            node = queue.pop(0)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+    return level
