@@ -1,5 +1,5 @@
 from leetcode_utils import TreeNode
-from typing import Optional, Tuple
+from typing import Optional
 
 def diameter_of_binary_tree(root: Optional[TreeNode]) -> int:
     diameter = 0
