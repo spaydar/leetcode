@@ -40,6 +40,14 @@ class ListNode:
             i += 1
         return dummy.next
 
+class Node:
+    """
+    Definition for a graph node
+    """
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+
 class TreeNode:
     """
     Definition for a binary tree node.
