@@ -13,4 +13,16 @@ def kth_smallest_recursive(root: Optional[TreeNode], k: int) -> int:
     return dfs(root, -1, 0)[0]
 
 def kth_smallest_iterative(root: Optional[TreeNode], k: int) -> int:
-    pass
+    stack = []
+    count = 0
+    curr = root
+    while curr or stack:
+        while curr:
+            stack.append(curr)
+            curr = curr.left
+        curr = stack.pop()
+        count += 1
+        if count == k:
+            return curr.val
+        curr = curr.right
+    return count
