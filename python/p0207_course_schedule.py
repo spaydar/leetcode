@@ -1,16 +1,13 @@
 from typing import List
 
 def can_finish(num_courses: int, prerequisites: List[List[int]]) -> bool:
-    prereqs_dict, visiting = {}, set()
-    for dependent, dependency in prerequisites:
-        if dependent in prereqs_dict:
-            prereqs_dict[dependent].append(dependency)
-        else:
-            prereqs_dict[dependent] = [dependency]
+    from collections import defaultdict
+    prereqs_dict, visiting = defaultdict(list), set()
+    [prereqs_dict[dependent].append(dependency) for dependent, dependency in prerequisites]
     def dfs(course: int) -> bool:
         if course in visiting:
             return False
-        if course not in prereqs_dict or not prereqs_dict[course]:
+        if not prereqs_dict[course]:
             return True
         visiting.add(course)
         for dependency in prereqs_dict[course]:
