@@ -24,9 +24,33 @@ def can_partition_memo(nums: List[int]) -> bool:
             return True
     return False
 
-def can_partition_table(nums: List[int]) -> bool:
-    # TODO
-    return False
+def can_partition_2d_table(nums: List[int]) -> bool:
+    total = sum(nums)
+    if total % 2 != 0:
+        return False
+    total //= 2
+    table = [[False for _ in range(total + 1)] for _ in range(len(nums) + 1)]
+    for i in range(len(nums) + 1):
+        table[i][0] = True
+    for i in range(1, len(nums) + 1):
+        for j in range(1, total + 1):
+            table[i][j] = table[i - 1][j]
+            if not table[i][j] and j >= nums[i - 1]:
+                table[i][j] = table[i - 1][j - nums[i - 1]]
+    return table[-1][-1]
+
+def can_partition_1d_table(nums: List[int]) -> bool:
+    total = sum(nums)
+    if total % 2 != 0:
+        return False
+    total //= 2
+    table = [False for _ in range(total + 1)]
+    table[0] = True
+    for n in nums:
+        for i in range(total, 0, -1):
+            if i >= n:
+                table[i] = table[i] or table[i - n]
+    return table[-1]
 
 def can_partition_set(nums: List[int]) -> bool:
     total = sum(nums)
