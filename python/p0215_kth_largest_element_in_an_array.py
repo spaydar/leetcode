@@ -11,8 +11,13 @@ def find_kth_largest_min_heap(nums: List[int], k: int) -> int:
     return result
 
 def find_kth_largest_max_heap(nums: List[int], k: int) -> int:
-    # TODO
-    return -1
+    nums = [n * -1 for n in nums]
+    heapq.heapify(nums)
+    result = -1
+    while k > 0:
+        result = heapq.heappop(nums) * -1
+        k -= 1
+    return result
 
 def find_kth_largest_quick_select(nums: List[int], k: int) -> int:
     # This times out on LeetCode for a particular large test case
