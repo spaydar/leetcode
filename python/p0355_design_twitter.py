@@ -3,7 +3,10 @@ import heapq
 from typing import List
 
 class TwitterProcessOnWriteList:
-
+    '''
+    Does processing on writes (post_tweet, [un]follow) so news feed can be read in constant time.
+    Naively maintains all tweets ever posted by followers in news feeds, so [un]follow is expensive.
+    '''
     def __init__(self) -> None:
         self.followee_dict = defaultdict(set)
         self.tweet_dict = defaultdict(list)
@@ -36,7 +39,10 @@ class TwitterProcessOnWriteList:
             self.news_feed_dict[follower_id] = [t for t in self.news_feed_dict[follower_id] if t[2] != followee_id]
 
 class TwitterProcessOnWriteHeap:
-
+    '''
+    Does processing on writes (post_tweet, [un]follow) so news feed can be read in constant time.
+    Uses heaps to enable faster writes and reduce size of stored news feeds.
+    '''
     def __init__(self) -> None:
         self.followee_dict = defaultdict(set)
         self.follower_dict = defaultdict(set)
@@ -89,7 +95,10 @@ class TwitterProcessOnWriteHeap:
             self.make_news_feed(follower_id)
 
 class TwitterProcessOnRead:
-
+    '''
+    Does processing on reads (get_news_feed) so writes can be done in constant time.
+    Uses a heap to optimize reads.
+    '''
     def __init__(self) -> None:
         self.follower_dict = defaultdict(set)
         self.tweet_dict = defaultdict(list)
