@@ -3,7 +3,7 @@ import heapq
 from typing import List
 
 class TwitterProcessOnWrite:
-
+    # TODO try to make preprocessed newsfeeds <= 10 tweets so (un)follows are less expensive
     def __init__(self) -> None:
         self.followee_dict = defaultdict(set)
         self.tweet_dict = defaultdict(list)
