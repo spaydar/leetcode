@@ -1,4 +1,4 @@
-from typing import List, reveal_type
+from typing import List
 
 def change_memo(amount: int, coins: List[int]) -> int:
     memo = {}
