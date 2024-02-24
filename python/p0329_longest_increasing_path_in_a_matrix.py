@@ -20,5 +20,43 @@ def longest_increasing_path_memo(matrix: List[List[int]]) -> int:
             result = max(result, dfs(x, y, -1))
     return result
 
-def longest_increasing_path_2d(matrix: List[List[int]]) -> int:
-    return -1
+def longest_increasing_path_table(matrix: List[List[int]]) -> int:
+    ROWS, COLS = len(matrix), len(matrix[0])
+    dp = [[0 for _ in range(COLS)] for _ in range(ROWS)]
+    def dfs(x: int, y: int, prev: int) -> int:
+        if (x < 0 or x == ROWS or
+            y < 0 or y == COLS or
+            matrix[x][y] <= prev
+        ):
+            return 0
+        if not dp[x][y]:
+            dp[x][y] = 1 + max(
+                dfs(x - 1, y, matrix[x][y]),
+                dfs(x + 1, y, matrix[x][y]),
+                dfs(x, y - 1, matrix[x][y]),
+                dfs(x, y + 1, matrix[x][y])
+            )
+        return dp[x][y]
+    result = -1
+    for x in range(ROWS):
+        for y in range(COLS):
+            result = max(result, dfs(x, y, -1))
+    return result
+
+def longest_increasing_path_table_inline(matrix: List[List[int]]) -> int:
+    ROWS, COLS = len(matrix), len(matrix[0])
+    dp = [[0 for _ in range(COLS)] for _ in range(ROWS)]
+    def dfs(x: int, y: int) -> int:
+        if not dp[x][y]:
+            dp[x][y] = 1 + max(
+                dfs(x - 1, y) if x and matrix[x - 1][y] < matrix[x][y] else 0,
+                dfs(x + 1, y) if x < ROWS - 1 and matrix[x + 1][y] < matrix[x][y] else 0,
+                dfs(x, y - 1) if y and matrix[x][y - 1] < matrix[x][y] else 0,
+                dfs(x, y + 1) if y < COLS - 1 and matrix[x][y + 1] < matrix[x][y] else 0
+            )
+        return dp[x][y]
+    result = -1
+    for x in range(ROWS):
+        for y in range(COLS):
+            result = max(result, dfs(x, y))
+    return result
