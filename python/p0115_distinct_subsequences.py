@@ -27,7 +27,6 @@ def num_distinct_table_2d(s: str, t: str) -> int:
     return dp[0][0]
 
 def num_distinct_table_1d(s: str, t: str) -> int:
-    # TODO this isn't working yet
     prev = [0 for _ in range(len(t) + 1)]
     prev[-1] = 1
     curr = prev[:]
@@ -38,7 +37,7 @@ def num_distinct_table_1d(s: str, t: str) -> int:
             curr[j] = prev[j]
             if s[i] == t[j]:
                 curr[j] += prev[j + 1]
-        for k in range(len(curr)):
+        for k in range(len(curr) - 1):
             prev[k] = curr[k]
             curr[k] = 0
     return prev[0]
