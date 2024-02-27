@@ -17,10 +17,9 @@ def is_match_memo(s: str, p: str) -> bool:
     return dfs(0, 0)
 
 def is_match_table_2d(s: str, p: str) -> bool:
-    # TODO this isn't working for s = "aabcbcbcaccbcaabc" and p = ".*a*aa*.*b*.c*.*a*"
     dp = [[False for _ in range(len(p) + 1)] for _ in range(len(s) + 1)]
     dp[-1][-1] = True
-    for j in range(len(p) - 1):
+    for j in reversed(range(len(p) - 1)):
         if p[j + 1] == '*':
             dp[-1][j] = dp[-1][j + 2]
     for i in reversed(range(len(s))):
@@ -31,3 +30,7 @@ def is_match_table_2d(s: str, p: str) -> bool:
             else:
                 dp[i][j] = chars_match and dp[i + 1][j + 1]
     return dp[0][0]
+
+def is_match_table_1d(s: str, p: str) -> bool:
+    # TODO
+    return False
