@@ -32,5 +32,20 @@ def is_match_table_2d(s: str, p: str) -> bool:
     return dp[0][0]
 
 def is_match_table_1d(s: str, p: str) -> bool:
-    # TODO
-    return False
+    prev = [False for _ in range(len(p) + 1)]
+    curr = prev[:]
+    prev[-1] = True
+    for j in reversed(range(len(p) - 1)):
+        if p[j + 1] == '*':
+            prev[j] = prev[j + 2]
+    for i in reversed(range(len(s))):
+        for j in reversed(range(len(p))):
+            chars_match = p[j] == '.' or s[i] == p[j]
+            if j < len(p) - 1 and p[j + 1] == '*':
+                curr[j] = curr[j + 2] or (chars_match and prev[j])
+            else:
+                curr[j] = chars_match and prev[j + 1]
+        for k in range(len(prev)):
+            prev[k] = curr[k]
+            curr[k] = False
+    return prev[0]
