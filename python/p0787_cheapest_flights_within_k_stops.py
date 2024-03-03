@@ -27,8 +27,6 @@ def find_cheapest_price_bfs(n: int, flights: List[List[int]], src: int, dst: int
     for _ in range(k + 1):
         for _ in range(len(queue)):
             total_cost, cur = queue.popleft()
-            if cur not in adj:
-                continue
             for nei, cost in adj[cur]:
                 if total_cost + cost < prices[nei]:
                     prices[nei] = total_cost + cost
