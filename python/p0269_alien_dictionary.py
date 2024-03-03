@@ -1,9 +1,7 @@
-from collections import defaultdict
 from typing import List
 
 def alien_order(words: List[str]) -> str:
-    # TODO this isn't working yet
-    adj = defaultdict(set)
+    adj = { char: set() for word in words for char in word }
     for i in range(len(words) - 1):
         w1, w2 = words[i], words[i + 1]
         min_len = min(len(w1), len(w2))
@@ -21,8 +19,8 @@ def alien_order(words: List[str]) -> str:
         if c in visited:
             return True
         visiting.add(c)
-        for dependent in adj[c]:
-            if not dfs(dependent):
+        for dependency in adj[c]:
+            if not dfs(dependency):
                 return False
         visiting.remove(c)
         visited.add(c)
