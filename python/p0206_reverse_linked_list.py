@@ -18,3 +18,12 @@ def reverse_list_recursive(head: Optional[ListNode]) -> Optional[ListNode]:
     head.next.next = head
     head.next = None
     return next
+
+def reverse_list_recursive_helper(head: Optional[ListNode]) -> Optional[ListNode]:
+    def reverse(curr: Optional[ListNode], prev: Optional[ListNode]) -> Optional[ListNode]:
+        if not curr:
+            return prev
+        next = curr.next
+        curr.next = prev
+        return reverse(next, curr)
+    return reverse(head, None)
