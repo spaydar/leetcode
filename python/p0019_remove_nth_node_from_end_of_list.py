@@ -18,6 +18,14 @@ def remove_nth_from_end(head: Optional[ListNode], n: int) -> Optional[ListNode]:
         runner = None
     return head
 
+def remove_nth_from_end_1_pass(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    # TODO
+    pass
+
+def remove_nth_from_end_recursive(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    # TODO
+    pass
+
 import unittest
 
 class TestRemoveNthFromEnd(unittest.TestCase):
