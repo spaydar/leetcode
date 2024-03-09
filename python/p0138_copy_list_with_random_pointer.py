@@ -14,7 +14,8 @@ def copy_random_list(head: Optional[Node]) -> Optional[Node]:
         runner = runner.next
     runner = head
     while runner:
-        node_map[runner].next = node_map[runner.next]
-        node_map[runner].random = node_map[runner.random]
+        new_node = node_map[runner]
+        new_node.next = node_map[runner.next]
+        new_node.random = node_map[runner.random]
         runner = runner.next
     return node_map[head]
