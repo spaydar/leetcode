@@ -2,29 +2,41 @@ from leetcode_utils import ListNode
 from typing import Optional
 
 def remove_nth_from_end(head: Optional[ListNode], n: int) -> Optional[ListNode]:
-    runner = head
+    dummy = runner = ListNode(-1, head)
     count = 0
-    while runner:
+    while runner.next:
         count += 1
         runner = runner.next
-    runner = head
-    i = 1
-    while i < count - n:
-        i += 1
+    runner = dummy
+    while count > n:
         runner = runner.next
-    if runner.next:
-        runner.next = runner.next.next
-    else:
-        runner = None
-    return head
+        count -= 1
+    runner.next = runner.next.next
+    return dummy.next
 
 def remove_nth_from_end_1_pass(head: Optional[ListNode], n: int) -> Optional[ListNode]:
-    # TODO
-    pass
+    dummy = first = second = ListNode(-1, head)
+    while n > 0:
+        first = first.next
+        n -= 1
+    while first.next:
+        first = first.next
+        second = second.next
+    second.next = second.next.next
+    return dummy.next
 
 def remove_nth_from_end_recursive(head: Optional[ListNode], n: int) -> Optional[ListNode]:
-    # TODO
-    pass
+    dummy = ListNode(-1, head)
+    def recurse(node: ListNode) -> int:
+        if not node.next:
+            return 1
+        count = recurse(node.next)
+        nonlocal n
+        if n == count:
+            node.next = node.next.next
+        return 1 + count
+    recurse(dummy)
+    return dummy.next
 
 import unittest
 
