@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import List
 
 def is_valid_sudoku_1_set(board: List[List[str]]) -> bool:
@@ -29,5 +30,18 @@ def is_valid_sudoku_1_set(board: List[List[str]]) -> bool:
     return True
 
 def is_valid_sudoku_multiple_sets(board: List[List[str]]) -> bool:
-    # TODO
+    row_sets = defaultdict(set)
+    col_sets = defaultdict(set)
+    sqr_sets = defaultdict(set)
+    for x in range(9):
+        for y in range(9):
+            val = board[x][y]
+            if val == '.':
+                continue
+            sqr_key = (x // 3, y // 3)
+            if val in row_sets[x] or val in col_sets[y] or val in sqr_sets[sqr_key]:
+                return False
+            row_sets[x].add(val)
+            col_sets[y].add(val)
+            sqr_sets[sqr_key].add(val)
     return True
