@@ -9,12 +9,12 @@ def encode(strs: List[str]) -> str:
 
 def decode(s: str) -> List[str]:
     result = []
-    start, end = 0, 0
-    while end < len(s):
+    start = 0
+    while start < len(s):
+        end = start
         while s[end] != '|':
             end += 1
         str_len = int(s[start:end])
         result.append(s[end + 1: end + 1 + str_len])
-        end = end + 1 + str_len
-        start = end
+        start = end + 1 + str_len
     return result
